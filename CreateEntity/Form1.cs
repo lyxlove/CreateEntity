@@ -14,6 +14,7 @@ namespace CreateEntity
         public Form1()
         {
             InitializeComponent();
+            LoadDefaultMsg();
         }
 
         private void btnConnect_Click(object sender, EventArgs e)
@@ -32,6 +33,24 @@ namespace CreateEntity
             create.ConnDB();
             string str=  create.CreateEntity(strTableName);
             EntityCreator.SaveStrToFile(str,strTableName);
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void LoadDefaultMsg()
+        {
+            rtbUsing.AppendText("using System;\n");
+            rtbUsing.AppendText("using System.Data;\n");
+
+            txtServer.Text = ".";
+            txtUer.Text = "sa";
+            txtPwd.Text = "123456";
+
+            txtNS.Text = "yzslz";
+            
         }
     }
 }
