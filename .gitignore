@@ -1,0 +1,5 @@
+CreateEntity/obj/
+CreateEntity/bin/
+*.cache
+
+CreateEntity/obj/Debug/DesignTimeResolveAssemblyReferences.cache

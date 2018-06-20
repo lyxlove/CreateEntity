@@ -5,8 +5,14 @@ using System.Text;
 
 namespace CreateEntity
 {
-    class ICreate
+    public interface ICreate
     {
+        void InitConn();
 
+        void ConnDB();
+
+        List<string> GetTableList();
+
+        string CreateEntity(string strTableName);
     }
 }

@@ -15,5 +15,23 @@ namespace CreateEntity
         {
             InitializeComponent();
         }
+
+        private void btnConnect_Click(object sender, EventArgs e)
+        {
+            ICreate create = new MSSQLCreate();
+            create.ConnDB();
+            List<string> list = create.GetTableList();
+            combTableList.Items.Clear();
+            combTableList.Items.AddRange(list.ToArray());
+        }
+
+        private void btnCreate_Click(object sender, EventArgs e)
+        {
+            string strTableName = combTableList.Text;
+            ICreate create = new MSSQLCreate();
+            create.ConnDB();
+            string str=  create.CreateEntity(strTableName);
+            EntityCreator.SaveStrToFile(str,strTableName);
+        }
     }
 }
