@@ -7,12 +7,12 @@ namespace CreateEntity
 {
     public interface ICreate
     {
-        void InitConn();
+        List<string> GetDataBaseList();
 
-        void ConnDB();
+        List<string> GetTableList(string strDBName);
 
-        List<string> GetTableList();
+        string CreateEntity(string strDBName, string strTableName,string strNameSpace);
 
-        string CreateEntity(string strTableName);
+        void InitConn(string strServer,string strUser,string strPwd);
     }
 }

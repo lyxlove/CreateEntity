@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Data.SqlClient;
 using System.Configuration;
+using System.Windows.Forms;
 
 namespace CreateEntity
 {
@@ -11,22 +12,16 @@ namespace CreateEntity
     {
         private string Conntr = string.Empty;
         private SqlConnection sqlConnection = null;
-        /// <summary>
-        /// 链接数据库
-        /// </summary>
-        public void ConnDB()
-        {
-            InitConn();
-            sqlConnection = new SqlConnection(Conntr);
-            sqlConnection.Open();
-        }
 
-        public string CreateEntity(string strTableName)
+
+        public string CreateEntity(string strDBName, string strTableName,string strNameSpace)
         {
-            string strSql =string.Format( "Select systypes.name AS TypeName,SysColumns.name AS ColName,ISNULL(sys.extended_properties.value,'') as Remark From SysColumns" +
-            " LEFT JOIN systypes ON SysColumns.xtype = systypes.xtype"+
-            " LEFT JOIN sys.extended_properties ON sys.extended_properties.major_id = SysColumns.id AND sys.extended_properties.minor_id = SysColumns.colorder"+
-            " Where id = Object_Id('{0}')",strTableName);
+
+            string strSql = string.Format("SELECT C.name AS TypeName,A.name AS ColName,ISNULL(B.value,'') as Remark From {0}.sys.SysColumns A"+
+            " LEFT JOIN {1}.sys.systypes C ON A.xtype = C.xtype"+
+            " LEFT JOIN {2}.sys.extended_properties B ON B.major_id = A.id AND B.minor_id = A.colorder"+
+            " Where A.id = Object_Id('{3}.dbo.{4}')", strDBName, strDBName, strDBName, strDBName, strTableName);    
+
             SqlCommand sqlCommand = new SqlCommand(strSql, sqlConnection);
             if (sqlConnection.State == System.Data.ConnectionState.Closed)
             {
@@ -44,14 +39,35 @@ namespace CreateEntity
             }
             sqlDataReader.Close();
 
-            return EntityCreator.CreateEntity(strTableName, listColName, listType, listColRemark);
+            return EntityCreator.CreateEntity(strTableName, listColName, listType, listColRemark, strNameSpace);
 
         }
 
-        public List<string> GetTableList()
+        public List<string> GetDataBaseList()
         {
             List<string> list = new List<string>();
-            string strSql = "Select Name From SysObjects Where XType='U' order By Name";
+            try
+            {
+                string strSql = "SELECT Name FROM Master..SysDatabases";
+                SqlCommand sqlCommand = new SqlCommand(strSql, sqlConnection);
+                SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
+                while (sqlDataReader.Read())
+                {
+                    list.Add(sqlDataReader[0].ToString());
+                }
+                sqlDataReader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            return list;
+        }
+
+        public List<string> GetTableList(string strDBName)
+        {
+            List<string> list = new List<string>();
+            string strSql =  string.Format("Select Name From {0}..SysObjects Where XType='U' order By Name", strDBName);
             SqlCommand sqlCommand = new SqlCommand(strSql, sqlConnection);
             if(sqlConnection.State == System.Data.ConnectionState.Closed)
             {
@@ -62,12 +78,15 @@ namespace CreateEntity
             {
                 list.Add(sqlDataReader[0].ToString());
             }
+            sqlDataReader.Close();
             return list;
         }
 
-        public void InitConn()
+        public void InitConn(string strServer, string strUser, string strPwd)
         {
-            Conntr = ConfigurationManager.ConnectionStrings["MSSQLConnect"].ConnectionString;
+            Conntr = string.Format(@"server={0};User Id={1};Password={2};", strServer, strUser, strPwd);
+            sqlConnection = new SqlConnection(Conntr);
+            sqlConnection.Open();
         }
 
         private string GetCSharpDataType(string strType)

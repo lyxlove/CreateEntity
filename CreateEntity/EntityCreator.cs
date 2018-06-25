@@ -9,7 +9,7 @@ namespace CreateEntity
 {
     public class EntityCreator
     {
-        public static string CreateEntity(string strTableName,List<string> listColName, List<string> listColType, List<string> listColRemark)
+        public static string CreateEntity(string strTableName,List<string> listColName, List<string> listColType, List<string> listColRemark,string strNameSpace)
         {
             StringBuilder sb = new StringBuilder();
 
@@ -17,7 +17,7 @@ namespace CreateEntity
             sb.AppendLine("using System.Data;");
             sb.AppendLine();
 
-            sb.AppendLine("namespace yzslz");
+            sb.AppendLine("namespace "+ strNameSpace);
             sb.AppendLine("{");
 
             sb.AppendLine("    public class " + strTableName);
@@ -33,7 +33,7 @@ namespace CreateEntity
             for (int i = 0; i < listColName.Count; i++)
             {
                 sb.AppendLine("        /// <summary>");
-                sb.AppendLine("        /// " + listColRemark[i]);
+                sb.AppendLine("        /// 获取或设置" + (string.IsNullOrEmpty(listColRemark[i]) ? listColName[i] : listColRemark[i]));
                 sb.AppendLine("        /// </summary>");
                 sb.AppendLine("        public " + listColType[i] + " " + listColName[i]);
                 sb.AppendLine("        {");
@@ -43,7 +43,7 @@ namespace CreateEntity
                 sb.AppendLine("            }");
                 sb.AppendLine("            set");
                 sb.AppendLine("            {");
-                sb.AppendLine("                " + " m_" + listColName[i] + "=value;");
+                sb.AppendLine("                " + " m_" + listColName[i] + " = value;");
                 sb.AppendLine("            }");
                 sb.AppendLine("        }");
                 sb.AppendLine();

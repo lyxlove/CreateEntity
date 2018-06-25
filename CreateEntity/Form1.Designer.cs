@@ -49,6 +49,7 @@
             this.rtbResult = new System.Windows.Forms.RichTextBox();
             this.txtNS = new System.Windows.Forms.TextBox();
             this.txtFilePath = new System.Windows.Forms.TextBox();
+            this.btnSave = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.gbNameSpace.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -100,6 +101,7 @@
             // 
             this.txtPwd.Location = new System.Drawing.Point(504, 18);
             this.txtPwd.Name = "txtPwd";
+            this.txtPwd.PasswordChar = '*';
             this.txtPwd.Size = new System.Drawing.Size(100, 21);
             this.txtPwd.TabIndex = 10;
             // 
@@ -207,7 +209,7 @@
             this.combDB.Name = "combDB";
             this.combDB.Size = new System.Drawing.Size(141, 20);
             this.combDB.TabIndex = 8;
-            this.combDB.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            this.combDB.SelectedIndexChanged += new System.EventHandler(this.combDB_SelectedIndexChanged);
             // 
             // groupBox2
             // 
@@ -241,11 +243,22 @@
             this.txtFilePath.Size = new System.Drawing.Size(331, 21);
             this.txtFilePath.TabIndex = 12;
             // 
+            // btnSave
+            // 
+            this.btnSave.Location = new System.Drawing.Point(716, 223);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(75, 27);
+            this.btnSave.TabIndex = 12;
+            this.btnSave.Text = "保存";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(806, 727);
+            this.Controls.Add(this.btnSave);
             this.Controls.Add(this.txtFilePath);
             this.Controls.Add(this.txtNS);
             this.Controls.Add(this.groupBox2);
@@ -292,6 +305,7 @@
         private System.Windows.Forms.RichTextBox rtbResult;
         private System.Windows.Forms.TextBox txtNS;
         private System.Windows.Forms.TextBox txtFilePath;
+        private System.Windows.Forms.Button btnSave;
     }
 }
 
