@@ -58,6 +58,112 @@ namespace CreateEntity
             return sb.ToString();
         }
 
+        public static string CreateEntity(string strVal,string strName)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            sb.AppendLine("using System;");
+            sb.AppendLine("using System.Data;");
+            sb.AppendLine();
+
+            sb.AppendLine("namespace gfVehicleLibraryAJ");
+            sb.AppendLine("{");
+
+            sb.AppendLine("    public class Vehicle_18M18_Para");
+            sb.AppendLine("    {");
+            sb.AppendLine();
+
+            try
+            {
+            
+                string[] sVal = strVal.Split(',');
+                string[] sName = strName.Split(',');
+
+                for (int i = 0; i < sVal.Length; i++)
+                {
+                    sb.AppendLine("        /// <summary>");
+                    sb.AppendLine("        /// 获取或设置" + sName[i]);
+                    sb.AppendLine("        /// </summary>");
+                    sb.AppendLine("        public string " + sVal[i]);
+                    sb.AppendLine("        {");
+                    sb.AppendLine("            get;");
+                    sb.AppendLine("            set;");
+                    sb.AppendLine("        }");
+                    sb.AppendLine();
+                }
+                sb.AppendLine();
+
+                sb.AppendLine("    }");
+                sb.AppendLine("}");
+                return sb.ToString();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            return sb.ToString();
+        }
+
+
+        public static string ChangeType(string s)
+        {
+            switch (s)
+            {
+                case "varchar2":
+                case "char":
+                case "date":
+                    return "string";
+                case "number":
+                    return "int?";                   
+            }
+            return "string";
+
+        }
+
+        public static string CreateEntity(string[] sVal, string[] sName, string[] sType)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            sb.AppendLine("using System;");
+            sb.AppendLine("using System.Data;");
+            sb.AppendLine();
+
+            sb.AppendLine("namespace gfVehicleLibraryAJ");
+            sb.AppendLine("{");
+
+            sb.AppendLine("    public class Vehicle_18M18_Para");
+            sb.AppendLine("    {");
+            sb.AppendLine();
+            try
+            {
+                for (int i = 0; i < sVal.Length; i++)
+                {
+                    sb.AppendLine("        /// <summary>");
+                    sb.AppendLine("        /// 获取或设置" + sName[i]);
+                    sb.AppendLine("        /// </summary>");
+                    sb.AppendLine("        public " + EntityCreator.ChangeType(sType[i]) + " " + sVal[i]);
+                    sb.AppendLine("        {");
+                    sb.AppendLine("            get;");
+                    sb.AppendLine("            set;");
+                    sb.AppendLine("        }");
+                    sb.AppendLine();
+                }
+                sb.AppendLine();
+
+                sb.AppendLine("    }");
+                sb.AppendLine("}");
+           
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message); 
+            }
+            return sb.ToString();
+        }
+
+
+
+
         public static void SaveStrToFile(string str,string strTableName)
         {
             string filePath = Application.StartupPath + "\\" + strTableName + ".cs";
@@ -85,5 +191,27 @@ namespace CreateEntity
                 }
             }
         }
+
+        #region 字符串中多个连续空格转为,
+        /// <summary>
+        /// 字符串中多个连续空格转为一个空格
+        /// </summary>
+        /// <param name="str">待处理的字符串</param>
+        /// <returns>合并空格后的字符串</returns>
+        public static string MergeSpace(string str)
+        {
+            if (str != string.Empty &&
+                str != null &&
+                str.Length > 0
+                )
+            {
+                str = new System.Text.RegularExpressions.Regex("[\\s]+").Replace(str, ",");
+            }
+            return str;
+        }
+
+
+        #endregion
+
     }
 }

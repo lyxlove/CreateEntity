@@ -50,6 +50,7 @@
             this.txtNS = new System.Windows.Forms.TextBox();
             this.txtFilePath = new System.Windows.Forms.TextBox();
             this.btnSave = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.gbNameSpace.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -253,11 +254,22 @@
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(456, 227);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(109, 23);
+            this.button1.TabIndex = 13;
+            this.button1.Text = "根据字符串生成";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(806, 727);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.txtFilePath);
             this.Controls.Add(this.txtNS);
@@ -306,6 +318,7 @@
         private System.Windows.Forms.TextBox txtNS;
         private System.Windows.Forms.TextBox txtFilePath;
         private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.Button button1;
     }
 }
 
