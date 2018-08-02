@@ -22,6 +22,12 @@ namespace CreateEntity
             string[] sName = rtbName.Text.Trim().Split(',');
             string[] sType = rtbType.Text.Trim().Split(',');
             string s = string.Empty;
+            if (sName.Length == 1 && sType.Length == 1)
+            {
+                s = EntityCreator.CreateEntity(rtbValue.Text.Trim());
+                rtbResult.Text = s;
+                return;
+            }
             if (!string.IsNullOrEmpty(rtbType.Text.Trim()))
             {
                 if (sVal.Length == sName.Length && sVal.Length == sType.Length)

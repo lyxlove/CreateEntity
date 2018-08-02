@@ -105,6 +105,48 @@ namespace CreateEntity
         }
 
 
+        public static string CreateEntity(string strVal)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            //sb.AppendLine("using System;");
+            //sb.AppendLine("using System.Data;");
+            //sb.AppendLine();
+
+            //sb.AppendLine("namespace gfVehicleLibraryAJ");
+            //sb.AppendLine("{");
+
+            //sb.AppendLine("    public class Vehicle_18M18_Para");
+            //sb.AppendLine("    {");
+            //sb.AppendLine();
+
+            try
+            {
+
+                string[] sVal = strVal.Split(',');
+                for (int i = 0; i < sVal.Length; i++)
+                {
+                    sb.AppendLine("        public double " + sVal[i]);
+                    sb.AppendLine("        {");
+                    sb.AppendLine("            get;");
+                    sb.AppendLine("            set;");
+                    sb.AppendLine("        }");
+                    sb.AppendLine();
+                }
+                sb.AppendLine();
+
+                //sb.AppendLine("    }");
+                //sb.AppendLine("}");
+                return sb.ToString();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            return sb.ToString();
+        }
+
+
         public static string ChangeType(string s)
         {
             switch (s)

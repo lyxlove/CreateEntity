@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Xml;
 
 namespace CreateEntity
 {
@@ -18,6 +19,7 @@ namespace CreateEntity
             InitializeComponent();
             LoadDefaultMsg();
             create = new MSSQLCreate();
+            GetXMLValue();
         }
 
         private void LoadDefaultMsg()
@@ -148,6 +150,31 @@ namespace CreateEntity
         {
             Form2 form2 = new Form2();
             form2.ShowDialog(this);
+        }
+
+
+        private void GetXMLValue()
+        {
+            string strSingleNode = "Request/Result/Row";
+
+            string strSingleNode1 = "Request";
+
+            XmlDocument xmlDocument = new XmlDocument();
+            xmlDocument.Load("S_WriteCalib[自检流量计].xml");
+            XmlNode xmlNode = xmlDocument.SelectSingleNode(strSingleNode);
+            XmlNode xmlNode1 = xmlDocument.SelectSingleNode(strSingleNode1);
+
+
+            XmlNodeList childNodes = xmlNode1.ChildNodes;
+            Dictionary<string, string> dic = new Dictionary<string, string>();
+            if (childNodes.Count > 0)
+            {
+                foreach (XmlNode item in childNodes)
+                {
+                    dic.Add(item.Name, item.InnerText);
+                }
+            }
+            int o = 0;
         }
     }
 }
