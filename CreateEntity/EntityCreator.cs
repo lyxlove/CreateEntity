@@ -20,33 +20,48 @@ namespace CreateEntity
             sb.AppendLine("namespace "+ strNameSpace);
             sb.AppendLine("{");
 
-            sb.AppendLine("    public class " + strTableName);
+            sb.AppendLine("    public class " + strTableName+" "+ "implements Serializable");
             sb.AppendLine("    {");
             sb.AppendLine();
 
             for(int i = 0;i<listColName.Count;i++)
             {
-                sb.AppendLine("       private " + listColType[i] + " m_" + listColName[i] + ";");
+                sb.AppendLine("       private " + listColType[i] +" " + listColName[i] + ";");
             }
             sb.AppendLine();
 
+            //for (int i = 0; i < listColName.Count; i++)
+            //{
+            //    sb.AppendLine("        /// <summary>");
+            //    sb.AppendLine("        /// 获取或设置" + (string.IsNullOrEmpty(listColRemark[i]) ? listColName[i] : listColRemark[i]));
+            //    sb.AppendLine("        /// </summary>");
+            //    sb.AppendLine("        public " + listColType[i] + " " + listColName[i]);
+            //    sb.AppendLine("        {");
+            //    sb.AppendLine("            get");
+            //    sb.AppendLine("            {");
+            //    sb.AppendLine("                return" + " m_" + listColName[i] + ";");
+            //    sb.AppendLine("            }");
+            //    sb.AppendLine("            set");
+            //    sb.AppendLine("            {");
+            //    sb.AppendLine("                " + " m_" + listColName[i] + " = value;");
+            //    sb.AppendLine("            }");
+            //    sb.AppendLine("        }");
+            //    sb.AppendLine();
+            //}
+
             for (int i = 0; i < listColName.Count; i++)
             {
-                sb.AppendLine("        /// <summary>");
-                sb.AppendLine("        /// 获取或设置" + (string.IsNullOrEmpty(listColRemark[i]) ? listColName[i] : listColRemark[i]));
-                sb.AppendLine("        /// </summary>");
-                sb.AppendLine("        public " + listColType[i] + " " + listColName[i]);
+                sb.AppendLine("        public " + listColType[i] + " " + "get" + listColName[i] + "()");
                 sb.AppendLine("        {");
-                sb.AppendLine("            get");
-                sb.AppendLine("            {");
-                sb.AppendLine("                return" + " m_" + listColName[i] + ";");
-                sb.AppendLine("            }");
-                sb.AppendLine("            set");
-                sb.AppendLine("            {");
-                sb.AppendLine("                " + " m_" + listColName[i] + " = value;");
-                sb.AppendLine("            }");
+                sb.AppendLine($"                 return {listColName[i]};");
                 sb.AppendLine("        }");
                 sb.AppendLine();
+                sb.AppendLine($"        public void set{listColName[i]}({listColType[i]} {listColName[i]})");
+                sb.AppendLine("        { ");
+                sb.AppendLine($"                 this.{listColName[i]} = {listColName[i]};");
+                sb.AppendLine("        }");
+                sb.AppendLine();
+
             }
 
             sb.AppendLine();

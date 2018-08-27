@@ -122,5 +122,39 @@ namespace CreateEntity
                     return "string";
             }
         }
+
+        private string GetJavaDataType(string strType)
+        {
+            switch (strType.ToLower())
+            {
+                case "int":
+                case "tinyint":
+                case "smallint":
+                    return "int";
+
+                case "varchar":
+                case "nvarchar":
+                case "text":
+                case "xml":
+                case "nchar":
+                    return "String";
+
+                case "float":
+                case "decimal":
+                    return "double";
+
+                case "date":
+                case "datetime":
+                case "time":
+                case "datetime2":
+                    return "DateTime";
+
+                case "image":
+                    return "byte[]";
+
+                default:
+                    return "String";
+            }
+        }
     }
 }

@@ -19,7 +19,6 @@ namespace CreateEntity
             InitializeComponent();
             LoadDefaultMsg();
             create = new MSSQLCreate();
-            GetXMLValue();
         }
 
         private void LoadDefaultMsg()
@@ -174,7 +173,6 @@ namespace CreateEntity
                     dic.Add(item.Name, item.InnerText);
                 }
             }
-            int o = 0;
         }
     }
 }
